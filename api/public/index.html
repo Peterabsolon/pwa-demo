@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>Hello world</h1>
+
+    <!-- <img src="./img/large-png.png" /> -->
+  </body>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch((error) => {
+            console.error('Service Worker registration failed:', error);
+          });
+      });
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('service-worker.js')
+        .then((registration) => {
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed') {
+                if (navigator.serviceWorker.controller) {
+                  // New update available, prompt the user to refresh (optional)
+                  if (confirm('New content is available. Refresh to update?')) {
+                    window.location.reload();
+                  }
+                }
+              }
+            };
+          };
+        })
+        .catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
+    }
+  </script>
+</html>

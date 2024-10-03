@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import webPush from 'web-push';
 
-interface ISubscription {
+export interface ISubscription {
   endpoint: string; // URL of the push service where the notification will be sent (Google, Apple, Mozilla..)
   expirationTime?: number | null; // Optional, the time when the subscription will expire (null if not applicable)
   keys: {
@@ -10,7 +10,7 @@ interface ISubscription {
   };
 }
 
-const VAPID_SUBJECT = '';
+const VAPID_SUBJECT = ''; // mail or url
 const VAPID_PRIVATE_KEY = '';
 const VAPID_PUBLIC_KEY = '';
 
